@@ -14,7 +14,7 @@ var sketchProc = function(processingInstance) {
 
 		Walker.prototype.display = function() {
 			stroke(0, 0, 0);
-			point(this.x, this.y);
+			ellipse(this.x, this.y,30,30);
 		};
 
 		// Randomly move up, down, left, right, or stay in one place
