@@ -3,18 +3,33 @@ var sketchProc = function(processingInstance) {
 	with(processingInstance) {
 
 		size(500, 500);
-
 		frameRate(30);
-		// Write code of program, here!!  
 
-		var Walker = function() {
-			this.x = width / 2;
-			this.y = height / 2;
+		var randomPosX = function() {
+			return Math.floor(Math.random() * (width - 15)) + 15;
+		}
+		var randomPosY = function() {
+			return Math.floor(Math.random() * (height - 15)) + 15;
+		}
+
+		var walkers = [];
+
+		var Walker = function(x,y) {
+			console.log("x:",x,"y:",y)
+			this.x = x;
+			this.y = y;
 		};
 
 		Walker.prototype.display = function() {
 			stroke(0, 0, 0);
 			ellipse(this.x, this.y,30,30);
+		};
+
+		Walker.prototype.remove = function() {
+			fill(0,0,0);
+			stroke(0, 0, 0);
+			ellipse(this.x, this.y,30,30);
+			fill(255,255,255);
 		};
 
 		// Randomly move up, down, left, right, or stay in one place
@@ -31,11 +46,38 @@ var sketchProc = function(processingInstance) {
 			}
 		};
 
-		var w = new Walker();
+		var addWalker = function(){
+			var walker = new Walker(
+				randomPosX(),
+				randomPosY()
+			)
+			walkers.push(walker);
+		}
+		var removeWalker = function(){
+			walkers.length--;
+		}
 
+		var createWalkers = function(event){
+			walkers_qty = event.target.value;
+			if (walkers_qty <= walkers.length){
+				while (walkers.length > walkers_qty) {
+					walkers[walkers.length-1].remove();
+					walkers.length--;
+				}
+			} else {
+				while (walkers.length < walkers_qty){
+					addWalker();
+				}
+			}
+		}
+
+		document.getElementById("walkers_qty").onchange = createWalkers;
+		createWalkers({ target: { value: 1 }});
 		var draw = function() {
-			w.walk();
-			w.display();
+			for (var i = walkers.length - 1; i >= 0; i--) {
+				walkers[i].walk();
+				walkers[i].display();
+			}
 		};
 //End Sketch Processing
 	}
