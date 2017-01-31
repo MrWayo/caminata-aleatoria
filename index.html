@@ -6,34 +6,39 @@
 </head>
 <body>
 	<canvas id="mycanvas"></canvas>
+	<br>
+	<label id="minutes">00</label>:<label id="seconds">00</label>
+	<br>
+	<label for="walkers_qty">Número de caminantes</label>
+	<input id="walkers_qty" type="number" value="1" name="walkers_qty">
+
 	<script src="js/processing.min.js"></script>
 	<script src="js/code.js"></script>
-<label id="minutes">00</label>:<label id="seconds">00</label>
-    <script type="text/javascript">
-        var minutesLabel = document.getElementById("minutes");
-        var secondsLabel = document.getElementById("seconds");
-        var totalSeconds = 0;
-        setInterval(setTime, 1000);
+	<script type="text/javascript">
+		var minutesLabel = document.getElementById("minutes");
+		var secondsLabel = document.getElementById("seconds");
+		var totalSeconds = 0;
+		setInterval(setTime, 1000);
 
-        function setTime()
-        {
-            ++totalSeconds;
-            secondsLabel.innerHTML = pad(totalSeconds%60);
-            minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
-        }
+		function setTime()
+		{
+			++totalSeconds;
+			secondsLabel.innerHTML = pad(totalSeconds%60);
+			minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+		}
 
-        function pad(val)
-        {
-            var valString = val + "";
-            if(valString.length < 2)
-            {
-                return "0" + valString;
-            }
-            else
-            {
-                return valString;
-            }
-        }
-    </script>
+		function pad(val)
+		{
+			var valString = val + "";
+			if(valString.length < 2)
+			{
+				return "0" + valString;
+			}
+			else
+			{
+				return valString;
+			}
+		}
+	</script>
 </body>
 </html>
